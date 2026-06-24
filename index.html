@@ -1,0 +1,1270 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>umabiyori.</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Shippori+Mincho:wght@500;600;700&display=swap");
+
+    :root {
+      color-scheme: light;
+      --font-app: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "MS PMincho", serif;
+      --font-title: "Shippori Mincho", "Shippori Mincho B1", "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Noto Serif JP", "MS PMincho", serif;
+      --paper: #faf8f4;
+      --paper-deep: #f3ede5;
+      --ink: #3f3935;
+      --muted: #7f746c;
+      --line: #e9ddcf;
+      --pink: #ead6d7;
+      --pink-2: #f4e7e8;
+      --blue: #c8ddee;
+      --blue-soft: #eef6fb;
+      --lavender: #ded7e8;
+      --beige: #e9ddcf;
+      --green: #dce8d8;
+      --green-2: #cbdcc7;
+      --green-soft: #f4f8f2;
+      --brown: #9c8573;
+      --brown-soft: #f0e7dd;
+      --red: #a99a8a;
+      --white: #ffffff;
+      --shadow: 0 12px 30px rgba(156, 133, 115, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-app);
+      font-feature-settings: "palt";
+      line-height: 1.85;
+      background:
+        radial-gradient(circle at 8% 12%, rgba(200, 221, 238, 0.4), transparent 25%),
+        radial-gradient(circle at 88% 4%, rgba(233, 221, 207, 0.66), transparent 24%),
+        radial-gradient(circle at 80% 76%, rgba(200, 221, 238, 0.22), transparent 28%),
+        var(--paper);
+      color: var(--ink);
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+
+    .app {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 38px 0 52px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 24px;
+      padding: 28px;
+      border: 1px solid rgba(156, 133, 115, 0.16);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 96% 10%, rgba(200, 221, 238, 0.58), transparent 25%),
+        radial-gradient(circle at 4% 95%, rgba(233, 221, 207, 0.55), transparent 28%),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.98), rgba(250, 248, 244, 0.92));
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "lifestyle travel note";
+      position: absolute;
+      right: 28px;
+      top: 20px;
+      color: rgba(159, 128, 104, 0.16);
+      font-family: var(--font-title);
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--brown);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: 0.06em;
+    }
+
+    .subtitle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      margin-bottom: 0;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      background: transparent;
+      color: var(--brown);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--font-title);
+      font-size: clamp(44px, 6.8vw, 82px);
+      line-height: 1.15;
+      letter-spacing: 0.03em;
+      color: #4a3d44;
+      font-weight: 600;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 2.1;
+    }
+
+    .sparkles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .sparkle {
+      border: 1px solid rgba(156, 133, 115, 0.16);
+      border-radius: 999px;
+      padding: 6px 11px;
+      background: rgba(255, 253, 249, 0.78);
+      color: var(--brown);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .stat-card {
+      min-height: 94px;
+      border: 1px solid rgba(156, 133, 115, 0.14);
+      border-radius: 24px;
+      padding: 16px;
+      background: rgba(255, 253, 253, 0.86);
+      box-shadow: var(--shadow);
+    }
+
+    .stat-card strong {
+      display: block;
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    .stat-card span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .progress-shell {
+      grid-column: 1 / -1;
+      border: 1px solid rgba(156, 133, 115, 0.14);
+      border-radius: 24px;
+      padding: 16px;
+      background: rgba(255, 253, 253, 0.86);
+      box-shadow: var(--shadow);
+    }
+
+    .progress-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .progress-bar {
+      height: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #f1e8df;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #c8ddee, #e9ddcf);
+      transition: width 0.24s ease;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 360px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel,
+    .card,
+    .trash-card {
+      border: 1px solid rgba(156, 133, 115, 0.14);
+      border-radius: 26px;
+      background: rgba(255, 253, 253, 0.92);
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      position: sticky;
+      top: 18px;
+      padding: 22px;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(156, 133, 115, 0.025) 32px),
+        rgba(255, 255, 255, 0.95);
+    }
+
+    .panel h2,
+    .section-title {
+      margin: 0;
+      font-size: 21px;
+      letter-spacing: 0;
+      font-weight: 600;
+    }
+
+    .form-note {
+      display: none;
+      margin: 8px 0 0;
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .panel.editing .form-note {
+      display: block;
+    }
+
+    form {
+      display: grid;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 0 14px;
+      background: white;
+      color: var(--ink);
+      outline: none;
+    }
+
+    textarea {
+      min-height: 92px;
+      padding: 12px 14px;
+      resize: vertical;
+      line-height: 1.75;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(159, 128, 104, 0.38);
+      box-shadow: 0 0 0 4px rgba(234, 215, 196, 0.42);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+    }
+
+    .primary,
+    .secondary,
+    .chip,
+    .small-button {
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .primary {
+      min-height: 46px;
+      background: #c8ddee;
+      color: #405767;
+      padding: 0 18px;
+    }
+
+    .primary:hover {
+      filter: brightness(0.98);
+    }
+
+    .secondary {
+      min-height: 46px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      padding: 0 16px;
+    }
+
+    .secondary:hover {
+      border-color: rgba(156, 133, 115, 0.24);
+      color: var(--brown);
+      background: rgba(243, 234, 223, 0.55);
+    }
+
+    .content {
+      display: grid;
+      gap: 18px;
+    }
+
+    .toolbar {
+      border: 1px solid rgba(159, 128, 104, 0.15);
+      border-radius: 26px;
+      padding: 18px;
+      background: rgba(255, 253, 253, 0.82);
+      box-shadow: var(--shadow);
+    }
+
+    .toolbar-row {
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 14px;
+      align-items: end;
+      margin-top: 14px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 9px;
+    }
+
+    .chip {
+      min-height: 36px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 253, 0.88);
+      color: var(--muted);
+      padding: 0 13px;
+    }
+
+    .chip.active {
+      border-color: rgba(156, 133, 115, 0.22);
+      background: #eef6fb;
+      color: #526c7e;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      padding: 20px;
+      display: grid;
+      gap: 16px;
+      min-height: 260px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: "☁️";
+      position: absolute;
+      right: 18px;
+      bottom: 14px;
+      color: rgba(200, 221, 238, 0.45);
+      font-size: 26px;
+      font-weight: 900;
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .place-title {
+      margin: 0;
+      font-size: 23px;
+      line-height: 1.32;
+      letter-spacing: 0;
+      font-weight: 600;
+      overflow-wrap: anywhere;
+    }
+
+    .place-title::before {
+      content: "☁️";
+      margin-right: 7px;
+      font-size: 18px;
+    }
+
+    .prefecture {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: #fff8f2;
+      color: #7d6d63;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid rgba(159, 128, 104, 0.1);
+    }
+
+    .status-wish {
+      background: #e9ddcf;
+      color: #806a58;
+    }
+
+    .status-planning {
+      background: #eef6fb;
+      color: #526c7e;
+    }
+
+    .status-visited {
+      background: #f5f7f2;
+      color: #6d7968;
+    }
+
+    .desire-high {
+      background: #eef6fb;
+      color: #526c7e;
+    }
+
+    .desire-medium {
+      background: #f3ede5;
+      color: #806a58;
+    }
+
+    .desire-low {
+      background: #f5f7f2;
+      color: #6d7968;
+    }
+
+    .detail-grid {
+      display: grid;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .detail-block strong {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 3px;
+      color: var(--brown);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      font-weight: 600;
+    }
+
+    .card-actions,
+    .trash-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .small-button {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--muted);
+      padding: 0 14px;
+    }
+
+    .small-button:hover {
+      border-color: rgba(156, 133, 115, 0.24);
+      color: var(--brown);
+      background: rgba(243, 234, 223, 0.55);
+    }
+
+    .link-button {
+      min-height: auto;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      padding: 0 1px 2px;
+      color: var(--muted);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    .link-button:hover {
+      color: var(--brown);
+      border-color: transparent;
+      background: transparent;
+    }
+
+    .visit-button {
+      background: #eef6fb;
+      color: #526c7e;
+      border-color: #d8e9f4;
+    }
+
+    .visit-button:hover {
+      color: #496678;
+      background: #dcecf7;
+    }
+
+    .danger:hover {
+      color: var(--ink);
+      border-color: #c8ddee;
+      background: #eef6fb;
+    }
+
+    .empty {
+      border: 1px dashed #c9b9a2;
+      border-radius: 20px;
+      padding: 34px 18px;
+      text-align: center;
+      color: var(--muted);
+      background: rgba(255, 253, 248, 0.65);
+    }
+
+    .trash-section {
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+
+    .trash-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .trash-note {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .trash-list {
+      display: grid;
+      gap: 9px;
+    }
+
+    .trash-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 13px;
+      box-shadow: none;
+    }
+
+    .trash-card h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+
+    .trash-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .layout,
+      .toolbar-row,
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        position: static;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .app {
+        width: min(100% - 20px, 1180px);
+        padding-top: 22px;
+      }
+
+      .stats,
+      .form-grid,
+      .form-actions,
+      .trash-card {
+        grid-template-columns: 1fr;
+      }
+
+      .card-head,
+      .trash-head {
+        display: grid;
+      }
+
+      .small-button,
+      .secondary {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <div>
+        <h1>umabiyori.</h1>
+        <div class="subtitle">旅の記録帳</div>
+        <p class="lead">好きな馬を追いかけて、<br>今日もどこかへ。</p>
+        <div class="sparkles" aria-label="アプリの雰囲気">
+          <span class="sparkle">☁️ 馬好きの休日</span>
+          <span class="sparkle">🌾 牧場めぐり</span>
+          <span class="sparkle">🧳 小さな遠征</span>
+          <span class="sparkle">📖 旅ノート</span>
+        </div>
+      </div>
+
+      <section class="stats" aria-label="訪問状況">
+        <div class="stat-card">
+          <strong id="visitedCount">0</strong>
+          <span>思い出</span>
+        </div>
+        <div class="stat-card">
+          <strong id="totalCount">0</strong>
+          <span>記録</span>
+        </div>
+        <div class="progress-shell">
+          <div class="progress-head">
+            <span>思い出率</span>
+            <span id="achievementRate">0%</span>
+          </div>
+          <div class="progress-bar" aria-hidden="true">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <div class="layout">
+      <aside class="panel" id="formPanel">
+        <h2 id="formTitle">旅の記録をつける</h2>
+        <p class="form-note">編集中です。保存すると記録に反映されます。</p>
+
+        <form id="tripForm">
+          <label>
+            場所名
+            <input id="placeNameInput" type="text" placeholder="例: 札幌競馬場" autocomplete="off" required>
+          </label>
+
+          <div class="form-grid">
+            <label>
+              カテゴリ
+              <select id="statusInput">
+                <option value="☁️ 行きたい場所">☁️ 行きたい場所</option>
+                <option value="🧳 旅の計画">🧳 旅の計画</option>
+                <option value="📖 思い出">📖 思い出</option>
+              </select>
+            </label>
+
+            <label>
+              行きたい度
+              <select id="priorityInput">
+                <option value="3" selected>???</option>
+                <option value="2">???</option>
+                <option value="1">???</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="form-grid">
+            <label>
+              都道府県
+              <input id="prefectureInput" type="text" placeholder="例: 北海道">
+            </label>
+
+            <label>
+              訪問予定日
+              <input id="visitDateInput" type="date">
+            </label>
+          </div>
+
+          <label>
+            メモ
+            <textarea id="memoInput" placeholder="行きたい理由、周辺で寄りたい場所、交通メモなど"></textarea>
+          </label>
+
+          <label>
+            感想
+            <textarea id="impressionInput" placeholder="訪問後の思い出、見どころ、次回のメモなど"></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button class="primary" id="submitButton" type="submit">記録する</button>
+            <button class="secondary" id="cancelEditButton" type="button" hidden>キャンセル</button>
+          </div>
+        </form>
+      </aside>
+
+      <section class="content">
+        <div class="toolbar">
+          <h2 class="section-title">旅の記録</h2>
+          <div class="toolbar-row">
+            <div>
+              <label>
+                カテゴリ別フィルター
+                <div class="chips" id="statusFilters"></div>
+              </label>
+            </div>
+            <label>
+              行きたい度フィルター
+              <select id="priorityFilter">
+                <option value="???">???</option>
+                <option value="3">???</option>
+                <option value="2">???</option>
+                <option value="1">???</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="cards" id="tripList"></div>
+
+        <section class="trash-section" aria-label="アーカイブ">
+          <div class="trash-head">
+            <div>
+              <h2 class="section-title">アーカイブ</h2>
+              <div class="trash-note" id="trashCount">0件</div>
+            </div>
+            <button class="small-button danger" id="emptyTrashButton" type="button">アーカイブを空にする</button>
+          </div>
+          <div class="trash-list" id="trashList"></div>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const tripStorageKey = "race-trip-log-items";
+    const trashStorageKey = "race-trip-log-trash";
+    const statuses = ["すべて", "☁️ 行きたい場所", "🧳 旅の計画", "📖 思い出"];
+    const statusMigrationMap = {
+      "行きたい場所": "☁️ 行きたい場所",
+      "いつか行きたい": "☁️ 行きたい場所",
+      "計画中": "🧳 旅の計画",
+      "旅の計画中": "🧳 旅の計画",
+      "予約済": "🧳 旅の計画",
+      "準備OK": "🧳 旅の計画",
+      "訪問済": "📖 思い出",
+      "思い出": "📖 思い出"
+    };
+    const desireMigrationMap = { "高": "3", "中": "2", "低": "1", "5": "3", "4": "3" };
+    const sampleTrips = [
+      {
+        placeName: "札幌競馬場",
+        status: "☁️ 行きたい場所",
+        prefecture: "北海道",
+        visitDate: "",
+        memo: "夏の北海道遠征で訪れたい。市街地からのアクセスも確認する。",
+        priority: "3",
+        visited: false,
+        impression: ""
+      },
+      {
+        placeName: "東京競馬場",
+        status: "🧳 旅の計画",
+        prefecture: "東京都",
+        visitDate: "",
+        memo: "大きなレースの日程と指定席の発売時期を調べる。",
+        priority: "3",
+        visited: false,
+        impression: ""
+      },
+      {
+        placeName: "京都競馬場",
+        status: "☁️ 行きたい場所",
+        prefecture: "京都府",
+        visitDate: "",
+        memo: "改修後のスタンドやパドックをゆっくり見たい。",
+        priority: "2",
+        visited: false,
+        impression: ""
+      },
+      {
+        placeName: "阪神競馬場",
+        status: "🧳 旅の計画",
+        prefecture: "兵庫県",
+        visitDate: "",
+        memo: "関西遠征の候補。周辺の宿も合わせて確認する。",
+        priority: "2",
+        visited: false,
+        impression: ""
+      },
+      {
+        placeName: "ノーザンホースパーク",
+        status: "🧳 旅の計画",
+        prefecture: "北海道",
+        visitDate: "",
+        memo: "新千歳空港からの移動と営業時間を確認する。",
+        priority: "3",
+        visited: false,
+        impression: ""
+      },
+      {
+        placeName: "社台スタリオンステーション",
+        status: "☁️ 行きたい場所",
+        prefecture: "北海道",
+        visitDate: "",
+        memo: "見学可否や公開期間を事前に調べる。",
+        priority: "3",
+        visited: false,
+        impression: ""
+      },
+      {
+        placeName: "ノーザンファーム",
+        status: "☁️ 行きたい場所",
+        prefecture: "北海道",
+        visitDate: "",
+        memo: "見学ルールを確認し、周辺施設と合わせて計画する。",
+        priority: "2",
+        visited: false,
+        impression: ""
+      },
+      {
+        placeName: "牧場見学ツアー",
+        status: "🧳 旅の計画",
+        prefecture: "北海道",
+        visitDate: "",
+        memo: "ツアー内容、集合場所、移動時間を比較する。",
+        priority: "2",
+        visited: false,
+        impression: ""
+      }
+    ];
+
+    let trips = loadTrips();
+    let trashedTrips = JSON.parse(localStorage.getItem(trashStorageKey) || "[]");
+    let selectedStatus = "すべて";
+    let selectedPriority = "すべて";
+    let editingTripId = null;
+
+    const elements = {
+      formPanel: document.querySelector("#formPanel"),
+      formTitle: document.querySelector("#formTitle"),
+      form: document.querySelector("#tripForm"),
+      placeName: document.querySelector("#placeNameInput"),
+      status: document.querySelector("#statusInput"),
+      prefecture: document.querySelector("#prefectureInput"),
+      visitDate: document.querySelector("#visitDateInput"),
+      memo: document.querySelector("#memoInput"),
+      priority: document.querySelector("#priorityInput"),
+      impression: document.querySelector("#impressionInput"),
+      submitButton: document.querySelector("#submitButton"),
+      cancelEditButton: document.querySelector("#cancelEditButton"),
+      statusFilters: document.querySelector("#statusFilters"),
+      priorityFilter: document.querySelector("#priorityFilter"),
+      tripList: document.querySelector("#tripList"),
+      trashList: document.querySelector("#trashList"),
+      trashCount: document.querySelector("#trashCount"),
+      emptyTrashButton: document.querySelector("#emptyTrashButton"),
+      visitedCount: document.querySelector("#visitedCount"),
+      totalCount: document.querySelector("#totalCount"),
+      achievementRate: document.querySelector("#achievementRate"),
+      progressFill: document.querySelector("#progressFill")
+    };
+
+    function loadTrips() {
+      const savedTrips = localStorage.getItem(tripStorageKey);
+      if (savedTrips) return JSON.parse(savedTrips);
+      return sampleTrips.map(createTripFromData);
+    }
+
+    function createTripFromData(data) {
+      const currentStatus = getCurrentStatusName(data.status);
+      return {
+        id: data.id || crypto.randomUUID(),
+        placeName: data.placeName || "",
+        status: currentStatus,
+        prefecture: data.prefecture || "",
+        visitDate: data.visitDate || "",
+        memo: data.memo || "",
+        priority: getCurrentDesireLevel(data.priority),
+        visited: Boolean(data.visited || currentStatus === "📖 思い出"),
+        impression: data.impression || "",
+        createdAt: data.createdAt || new Date().toISOString()
+      };
+    }
+
+    function getCurrentStatusName(status) {
+      return statusMigrationMap[status] || status || "☁️ 行きたい場所";
+    }
+
+    function getCurrentDesireLevel(priority) {
+      const value = String(priority || "3");
+      return desireMigrationMap[value] || (["1", "2", "3"].includes(value) ? value : "2");
+    }
+
+    function saveTrips() {
+      localStorage.setItem(tripStorageKey, JSON.stringify(trips));
+    }
+
+    function saveTrash() {
+      localStorage.setItem(trashStorageKey, JSON.stringify(trashedTrips));
+    }
+
+    function normalizeAndSave() {
+      trips = trips.map(createTripFromData);
+      trashedTrips = trashedTrips.map(createTripFromData);
+      saveTrips();
+      saveTrash();
+    }
+
+    function renderStatusFilters() {
+      elements.statusFilters.innerHTML = statuses.map((status) => `
+        <button class="chip ${status === selectedStatus ? "active" : ""}" type="button" data-status="${status}">
+          ${escapeHtml(status)}
+        </button>
+      `).join("");
+    }
+
+    function getFilteredTrips() {
+      return trips.filter((trip) => {
+        const matchesStatus = selectedStatus === "すべて" || trip.status === selectedStatus;
+        const matchesPriority = selectedPriority === "すべて" || trip.priority === selectedPriority;
+        return matchesStatus && matchesPriority;
+      });
+    }
+
+    function renderStats() {
+      const totalCount = trips.length;
+      const visitedCount = trips.filter((trip) => trip.visited).length;
+      const rate = totalCount === 0 ? 0 : Math.round((visitedCount / totalCount) * 100);
+
+      elements.visitedCount.textContent = visitedCount;
+      elements.totalCount.textContent = totalCount;
+      elements.achievementRate.textContent = `${rate}%`;
+      elements.progressFill.style.width = `${rate}%`;
+    }
+
+    function renderTrips() {
+      renderStats();
+      renderStatusFilters();
+      renderTrash();
+
+      const filteredTrips = getFilteredTrips();
+      if (filteredTrips.length === 0) {
+        elements.tripList.innerHTML = '<div class="empty">条件に合う旅先はありません。</div>';
+        return;
+      }
+
+      elements.tripList.innerHTML = filteredTrips.map((trip) => {
+        const statusClass = getStatusClass(trip.status);
+        const desireClass = getDesireClass(trip.priority);
+        const visitDate = trip.visitDate || "未定";
+        const memo = trip.memo || "メモはまだありません。";
+        const impression = trip.impression || "感想は訪問後に残せます。";
+
+        return `
+          <article class="card" data-id="${trip.id}">
+            <div class="card-head">
+              <div>
+                <h3 class="place-title">${escapeHtml(trip.placeName)}</h3>
+                <div class="prefecture">${escapeHtml(trip.prefecture || "都道府県未設定")}</div>
+              </div>
+              <span class="tag ${statusClass}">${escapeHtml(trip.status)}</span>
+            </div>
+
+            <div class="tag-list">
+              <span class="tag ${desireClass}">行きたい度 ${getStars(trip.priority)}</span>
+              <span class="tag">🧳 訪問予定日 ${escapeHtml(visitDate)}</span>
+              <span class="tag">${trip.visited ? "📖 思い出" : "☁️ これから"}</span>
+            </div>
+
+            <div class="detail-grid">
+              <div class="detail-block">
+                <strong><span aria-hidden="true">🧳</span>メモ</strong>
+                <div>${escapeHtml(memo)}</div>
+              </div>
+              <div class="detail-block">
+                <strong><span aria-hidden="true">🌿</span>感想</strong>
+                <div>${escapeHtml(impression)}</div>
+              </div>
+            </div>
+
+            <div class="card-actions">
+              <button class="small-button visit-button" type="button" data-action="visited" ${trip.visited ? "disabled" : ""}>思い出にする</button>
+              <button class="small-button" type="button" data-action="edit">編集</button>
+              <button class="small-button link-button" type="button" data-action="delete">アーカイブへ</button>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderTrash() {
+      elements.trashCount.textContent = `${trashedTrips.length}件`;
+      elements.emptyTrashButton.disabled = trashedTrips.length === 0;
+
+      if (trashedTrips.length === 0) {
+        elements.trashList.innerHTML = '<div class="empty">アーカイブした記録はありません。</div>';
+        return;
+      }
+
+      elements.trashList.innerHTML = trashedTrips.map((trip) => `
+        <article class="trash-card" data-id="${trip.id}">
+          <div>
+            <h3>${escapeHtml(trip.placeName)}</h3>
+            <p>${escapeHtml(trip.prefecture || "都道府県未設定")} / ${escapeHtml(trip.status)} / 行きたい度 ${getStars(trip.priority)}</p>
+          </div>
+          <div class="trash-actions">
+            <button class="small-button" type="button" data-action="restore">記録に戻す</button>
+            <button class="small-button danger" type="button" data-action="permanent-delete">完全に手放す</button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function getStatusClass(status) {
+      const classMap = {
+        "☁️ 行きたい場所": "status-wish",
+        "🧳 旅の計画": "status-planning",
+        "📖 思い出": "status-visited"
+      };
+      return classMap[status] || "status-wish";
+    }
+
+    function getDesireClass(priority) {
+      const classMap = {
+        "3": "desire-high",
+        "2": "desire-medium",
+        "1": "desire-low"
+      };
+      return classMap[String(priority)] || "desire-medium";
+    }
+
+    function getStars(priority) {
+      const count = Math.max(1, Math.min(3, Number(getCurrentDesireLevel(priority)) || 2));
+      return "★".repeat(count) + "☆".repeat(3 - count);
+    }
+
+    function resetForm() {
+      editingTripId = null;
+      elements.form.reset();
+      elements.status.value = "☁️ 行きたい場所";
+      elements.priority.value = "2";
+      elements.formTitle.textContent = "旅の記録をつける";
+      elements.submitButton.textContent = "記録する";
+      elements.cancelEditButton.hidden = true;
+      elements.formPanel.classList.remove("editing");
+    }
+
+    function fillFormForEdit(trip) {
+      editingTripId = trip.id;
+      elements.placeName.value = trip.placeName;
+      elements.status.value = trip.status;
+      elements.prefecture.value = trip.prefecture;
+      elements.visitDate.value = trip.visitDate;
+      elements.memo.value = trip.memo;
+      elements.priority.value = trip.priority;
+      elements.impression.value = trip.impression;
+      elements.formTitle.textContent = "旅の記録を編集";
+      elements.submitButton.textContent = "保存する";
+      elements.cancelEditButton.hidden = false;
+      elements.formPanel.classList.add("editing");
+      elements.formPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      elements.placeName.focus();
+    }
+
+    function getFormData() {
+      const status = elements.status.value;
+      return {
+        placeName: elements.placeName.value.trim(),
+        status,
+        prefecture: elements.prefecture.value.trim(),
+        visitDate: elements.visitDate.value,
+        memo: elements.memo.value.trim(),
+        priority: elements.priority.value,
+        visited: status === "📖 思い出",
+        impression: elements.impression.value.trim()
+      };
+    }
+
+    function moveTripToTrash(trip) {
+      trashedTrips = [{ ...trip, deletedAt: new Date().toISOString() }, ...trashedTrips];
+      trips = trips.filter((item) => item.id !== trip.id);
+      saveTrips();
+      saveTrash();
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[char]));
+    }
+
+    elements.form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = getFormData();
+      if (!formData.placeName) return;
+
+      if (editingTripId) {
+        const trip = trips.find((item) => item.id === editingTripId);
+        if (trip) {
+          Object.assign(trip, formData);
+        }
+      } else {
+        trips.unshift(createTripFromData(formData));
+      }
+
+      saveTrips();
+      resetForm();
+      renderTrips();
+    });
+
+    elements.cancelEditButton.addEventListener("click", () => {
+      resetForm();
+      renderTrips();
+      elements.placeName.focus();
+    });
+
+    elements.statusFilters.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-status]");
+      if (!button) return;
+      selectedStatus = button.dataset.status;
+      renderTrips();
+    });
+
+    elements.priorityFilter.addEventListener("change", () => {
+      selectedPriority = elements.priorityFilter.value;
+      renderTrips();
+    });
+
+    elements.tripList.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-action]");
+      const card = event.target.closest(".card");
+      if (!button || !card) return;
+
+      const trip = trips.find((item) => item.id === card.dataset.id);
+      if (!trip) return;
+
+      if (button.dataset.action === "visited") {
+        trip.status = "📖 思い出";
+        trip.visited = true;
+        saveTrips();
+        renderTrips();
+        return;
+      }
+
+      if (button.dataset.action === "edit") {
+        fillFormForEdit(trip);
+        return;
+      }
+
+      if (button.dataset.action === "delete") {
+        moveTripToTrash(trip);
+        if (editingTripId === trip.id) resetForm();
+        renderTrips();
+      }
+    });
+
+    elements.trashList.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-action]");
+      const card = event.target.closest(".trash-card");
+      if (!button || !card) return;
+
+      const trip = trashedTrips.find((item) => item.id === card.dataset.id);
+      if (!trip) return;
+
+      if (button.dataset.action === "restore") {
+        const { deletedAt, ...restoredTrip } = trip;
+        trips.unshift(createTripFromData(restoredTrip));
+        trashedTrips = trashedTrips.filter((item) => item.id !== trip.id);
+        saveTrips();
+        saveTrash();
+        renderTrips();
+        return;
+      }
+
+      if (button.dataset.action === "permanent-delete") {
+        trashedTrips = trashedTrips.filter((item) => item.id !== trip.id);
+        saveTrash();
+        renderTrips();
+      }
+    });
+
+    elements.emptyTrashButton.addEventListener("click", () => {
+      trashedTrips = [];
+      saveTrash();
+      renderTrips();
+    });
+
+    normalizeAndSave();
+    renderTrips();
+  </script>
+</body>
+</html>
